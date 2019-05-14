@@ -75,6 +75,8 @@ feign:
     enabled: false
   okhttp:
     enabled: true
+  hystrix:
+    enabled: true
 
 ribbon:
   eureka:
@@ -108,3 +110,7 @@ management:
         include: '*'
   security:
     enabled: false
+
+admin:
+  application:
+    name: dfjinxin-fast

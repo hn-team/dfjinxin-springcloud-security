@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by ace on 2017/9/8.
- */
+
 @ControllerAdvice("com.dfjinxin")
 @ResponseBody
 public class GlobalExceptionHandler {
@@ -67,6 +65,11 @@ public class GlobalExceptionHandler {
         return r;
     }
 
+    @ExceptionHandler(FeignException.class)
+    public R handleFeignException(FeignException e){
+        return R.error(500, e.getMessage());
+    }
+
 //    @ExceptionHandler(Exception.class)
 //    public R otherExceptionHandler(HttpServletResponse response, Exception ex) {
 //        response.setStatus(500);
@@ -77,7 +80,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public R handleException(Exception e){
         logger.error(e.getMessage(), e);
+        if(null != e.getMessage()){
+            return R.error(e.getMessage());
+        }
         return R.error();
     }
-
 }
